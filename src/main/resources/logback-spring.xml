@@ -1,15 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+
+    <!-- Appender de consola -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-<!--            <pattern>[%thread] %-5level: %logger - %msg%n</pattern> con o sin salto de línea -->
-            <pattern>%msg</pattern>
+            <!-- Solo mensaje: %msg%n
+                 Si quieres nivel: %level - %msg%n -->
+            <pattern>%msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- nivel de información-->
-    <root level="info">
+    <!-- Nivel root -->
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
+
+    <!-- Ejemplo: habilitar DEBUG solo para tu paquete -->
+    <logger name="org.nexus.gestion_tareas" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
 
 </configuration>

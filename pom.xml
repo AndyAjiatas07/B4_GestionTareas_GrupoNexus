@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.nexus</groupId>
-	<artifactId>gestion-tareas-nexus</artifactId>
+	<artifactId>gestion_tareas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gestion-tareas-nexus</name>
-	<description>Sistema de Gestión de Tareas Académicas Nexus</description>
+	<name>gestion_tareas</name>
+	<description>Una herramienta para que estudiantes y profesores gestionen tareas y proyectos. Facilita la asignación, entrega y calificación de trabajos en un entorno educativo.</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -27,34 +27,27 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>23</java.version>
-		<maven.compiler.source>23</maven.compiler.source>
-		<maven.compiler.target>23</maven.compiler.target>
-		<joinfaces.version>5.4.3</joinfaces.version>
-	</properties>
+		<java.version>21</java.version>
+        <joinfaces.version>5.4.3</joinfaces.version>
+    </properties>
 	<dependencies>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.joinfaces</groupId>
+            <artifactId>primefaces-spring-boot-starter</artifactId>
+            <version>5.4.3</version>
+        </dependency>
 		<dependency>
-			<groupId>com.formdev</groupId>
-			<artifactId>flatlaf</artifactId>
-			<version>3.0</version>
-			<scope>import</scope>
-		</dependency>
-
-
-
-		<dependency>
-			<groupId>org.joinfaces</groupId>
-			<artifactId>primefaces-spring-boot-starter</artifactId>
-			<version>5.4.3</version>
-			<scope>import</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
 		<dependency>
@@ -62,30 +55,11 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
-
-
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.faces</artifactId>
-			<version>4.0.9</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>12.0.0</version>
-			<classifier>jakarta</classifier>
-		</dependency>
-
-
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.38</version>
-			<optional>true</optional>
+            <version>1.18.38</version>
+            <optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

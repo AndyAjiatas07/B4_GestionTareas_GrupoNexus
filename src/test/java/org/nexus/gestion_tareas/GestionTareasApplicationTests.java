@@ -1,10 +1,10 @@
-package org.nexus.gestion_tareas_nexus;
+package org.nexus.gestion_tareas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GestionTareasNexusApplicationTests {
+class GestionTareasApplicationTests {
 
 	@Test
 	void contextLoads() {

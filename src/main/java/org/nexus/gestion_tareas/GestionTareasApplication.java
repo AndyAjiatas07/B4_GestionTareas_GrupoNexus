@@ -1,13 +1,15 @@
-package org.nexus.gestion_tareas_nexus;
+package org.nexus.gestion_tareas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GestionTareasNexusApplication {
+public class GestionTareasApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GestionTareasNexusApplication.class, args);
+
+        SpringApplication.run(GestionTareasApplication.class, args);
+        System.out.println("hola");
 	}
 
 }
