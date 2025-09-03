@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Gestión de Tareas</title>
+</h:head>
+
+<h:body>
+    <h:form id="formTareas">
+
+        <h2>Lista de Tareas</h2>
+        <p:dataTable value="#{gestionTareasController.listaTareas}" var="tarea"
+                     styleClass="p-datatable-gridlines" rows="10" paginator="true">
+            <p:column headerText="Título">
+                #{tarea.titulo}
+            </p:column>
+            <p:column headerText="Descripción">
+                #{tarea.descripcion}
+            </p:column>
+            <p:column headerText="Fecha de Entrega">
+                #{tarea.fechaEntrega}
+            </p:column>
+        </p:dataTable>
+
+        <h3>Crear Nueva Tarea</h3>
+        <p:panelGrid columns="2" columnClasses="label,value">
+            <h:outputLabel value="Título:" />
+            <p:inputText value="#{gestionTareasController.nuevaTarea.titulo}" />
+
+            <h:outputLabel value="Descripción:" />
+            <p:inputTextarea value="#{gestionTareasController.nuevaTarea.descripcion}" rows="4" cols="30" />
+
+            <h:outputLabel value="Fecha de Entrega:" />
+            <p:calendar value="#{gestionTareasController.nuevaTarea.fechaEntrega}" showTime="true" pattern="yyyy-MM-dd HH:mm:ss" />
+        </p:panelGrid>
+        <p:commandButton value="Crear Tarea" action="#{gestionTareasController.crearTarea}" update="@form" />
+
+        <h2>Tareas Entregadas por Alumnos</h2>
+        <p:dataTable value="#{gestionTareasController.listaEntregas}" var="entrega"
+                     selection="#{gestionTareasController.entregaSeleccionada}"
+                     selectionMode="single"
+                     rowKey="#{entrega.codigoEntrega}"
+                     styleClass="p-datatable-gridlines" rows="10" paginator="true">
+        <p:column headerText="Alumno">
+                #{entrega.alumno.nombreUsuario}
+            </p:column>
+            <p:column headerText="Tarea">
+                #{entrega.tarea.titulo}
+            </p:column>
+            <p:column headerText="Respuesta">
+                #{entrega.respuesta}
+            </p:column>
+            <p:column headerText="Fecha Entrega">
+                #{entrega.fechaEntrega}
+            </p:column>
+            <p:column headerText="Calificación">
+                <p:inputText value="#{entrega.calificacion}" />
+            </p:column>
+        </p:dataTable>
+        <p:commandButton value="Guardar Calificación" action="#{gestionTareasController.calificarEntrega}" update="@form" />
+
+    </h:form>
+</h:body>
+</html>
