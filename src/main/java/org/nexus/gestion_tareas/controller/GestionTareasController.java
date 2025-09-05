@@ -25,34 +25,80 @@ public class GestionTareasController implements Serializable {
 
     private List<Tarea> listaTareas;
     private List<Entrega> listaEntregas;
-    private Tarea nuevaTarea = new Tarea();
+
+    private Tarea nuevaTarea;
+    private Tarea tareaSeleccionada;
+    private Tarea tareaEnEdicion;
     private Entrega entregaSeleccionada;
 
     @PostConstruct
     public void init() {
+        // Listas
         listaTareas = tareaService.listarTareas();
         listaEntregas = entregaService.listarEntregas();
+
+        // Variables de tarea
+        nuevaTarea = new Tarea();
+        tareaSeleccionada = new Tarea();
+        tareaEnEdicion = new Tarea();
+
+        // Variable de entrega
+        entregaSeleccionada = new Entrega();
     }
 
+    // --- Tareas ---
     public void crearTarea() {
-        nuevaTarea.setFechaEntrega(LocalDateTime.now()); // ejemplo temporal, ajustar según input
+        nuevaTarea.setFechaEntrega(LocalDateTime.now());
         tareaService.guardarTarea(nuevaTarea);
         listaTareas = tareaService.listarTareas();
         nuevaTarea = new Tarea();
     }
 
-    public void calificarEntrega() {
-        if (entregaSeleccionada != null) {
-            entregaService.guardarEntrega(entregaSeleccionada);
-            listaEntregas = entregaService.listarEntregas();
+    public void prepararEdicion(Tarea tarea) {
+        if (tarea != null) {
+            this.tareaEnEdicion = tarea;
+        } else {
+            this.tareaEnEdicion = new Tarea();
         }
     }
 
-    // Getters y Setters
+    public void actualizarTarea() {
+        if (tareaEnEdicion != null) {
+            tareaService.guardarTarea(tareaEnEdicion);
+            listaTareas = tareaService.listarTareas();
+        }
+    }
+
+    public void seleccionarTarea(Tarea tarea) {
+        this.tareaSeleccionada = tarea;
+    }
+
+    public void eliminarTarea(Tarea tarea) {
+        tareaService.eliminarTarea(tarea);
+        listaTareas = tareaService.listarTareas();
+    }
+
+    // --- Entregas ---
+    public void calificarEntrega() {
+        for (Entrega entrega : listaEntregas) {
+            entregaService.guardarEntrega(entrega);
+        }
+        listaEntregas = entregaService.listarEntregas();
+    }
+
+    // --- Getters y Setters ---
     public List<Tarea> getListaTareas() { return listaTareas; }
     public List<Entrega> getListaEntregas() { return listaEntregas; }
+
     public Tarea getNuevaTarea() { return nuevaTarea; }
     public void setNuevaTarea(Tarea nuevaTarea) { this.nuevaTarea = nuevaTarea; }
+
+    public Tarea getTareaSeleccionada() { return tareaSeleccionada; }
+    public void setTareaSeleccionada(Tarea tareaSeleccionada) { this.tareaSeleccionada = tareaSeleccionada; }
+
+    public Tarea getTareaEnEdicion() { return tareaEnEdicion; }
+    public void setTareaEnEdicion(Tarea tareaEnEdicion) { this.tareaEnEdicion = tareaEnEdicion; }
+
     public Entrega getEntregaSeleccionada() { return entregaSeleccionada; }
     public void setEntregaSeleccionada(Entrega entregaSeleccionada) { this.entregaSeleccionada = entregaSeleccionada; }
 }
