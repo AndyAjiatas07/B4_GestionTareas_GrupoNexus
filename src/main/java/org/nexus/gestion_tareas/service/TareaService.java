@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TareaService implements ITareaService{
+
     @Autowired
     private TareaRepository tareaRepository;
 

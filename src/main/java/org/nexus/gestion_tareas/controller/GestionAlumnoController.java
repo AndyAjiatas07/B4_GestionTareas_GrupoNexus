@@ -1,4 +1,5 @@
 package org.nexus.gestion_tareas.controller;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
@@ -14,8 +15,6 @@ import java.util.List;
 
 @Named
 @ViewScoped
-
-public class GestionAlumnoController implements Serializable{
 
     @Autowired
     private ITareaService tareaService;
@@ -33,9 +32,6 @@ public class GestionAlumnoController implements Serializable{
     public void init() {
         listaTareas = tareaService.listarTareas();
         listaEntregas = entregaService.listarEntregas();
-        for (Entrega entrega : listaEntregas) {
-            listaTareas.removeIf(t -> t.getCodigoTarea().equals(entrega.getTarea().getCodigoTarea()));
-        }
 
         nuevaEntrega = new Entrega();
         tareaSeleccionada = null; // inicializamos null

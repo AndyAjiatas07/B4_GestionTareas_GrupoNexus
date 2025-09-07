@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<h:html xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Login - Nexus Portal</title>
+        <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/primefaces@10.0.0/themes/saga-blue.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css"/>
+
+        <style>
+            body {
+                margin: 0;
+                height: 100vh;
+                background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('https://static.wixstatic.com/media/128120_2149451250ff47698d7060f748273a41~mv2.png/v1/fit/w_2500,h_1330,al_c/128120_2149451250ff47698d7060f748273a41~mv2.png');
+                background-size: cover;
+                background-position: center;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .login-container {
+                width: 100%;
+                max-width: 420px;
+                background-color: #ffffffee;
+                padding: 2.5rem;
+                border-radius: 12px;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+                animation: fadeIn 1s ease;
+            }
+
+            .login-image {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+            }
+
+            .title-center {
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 1.8rem;
+                color: #2c3e50;
+                margin-bottom: 1.5rem;
+            }
+
+            .text-muted {
+                font-size: 0.9rem;
+                color: #666666;
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        <h:form id="login-form">
+            <p:growl id="login-messages" showDetail="true" autoUpdate="true" />
+
+            <h:panelGroup rendered="#{!userController.isLoggedIn}">
+                <div class="flex align-items-center justify-content-center h-screen">
+                    <div class="login-container">
+                        <!-- Imagen  -->
+                        <img src="https://static3.depositphotos.com/1005574/198/v/950/depositphotos_1982796-stock-illustration-login-icon-button.jpg"
+                             alt="Imagen de inicio"
+                             class="login-image" />
+
+
+                        <div class="title-center">
+                            <i class="pi pi-lock"></i>
+                            <span>Acceso Seguro</span>
+                        </div>
+
+                        <p class="text-muted">Bienvenido al Portal Nexus. Por favor, ingresa tus credenciales.</p>
+
+                        <div class="input-group">
+                            <p:inputText id="email" value="#{registerLoginController.usuario.email}"
+                                         label="Usuario" placeholder="Correo"
+                                         required="true" styleClass="p-inputtext-lg w-full" />
+                        </div>
+
+                        <div class="input-group">
+                            <p:password id="password" value="#{registerLoginController.usuario.password}"
+                                        label="password" placeholder="Contraseña"
+                                        required="true" styleClass="p-inputtext-lg w-full" feedback="false"/>
+                        </div>
+
+                        <div class="btn-group mt-3">
+                            <p:commandButton value="Iniciar sesión"
+                                             icon="pi pi-sign-in"
+                                             action="#{registerLoginController.login}"
+                                             update="login-messages"
+                                             styleClass="ui-button-primary w-full p-button-lg" />
+                        </div>
+
+                        <!-- Botón de Registro -->
+                        <div class="btn-group mt-2">
+                            <p:button value="¿No tienes cuenta? Regístrate"
+                                      outcome="register.xhtml"
+                                      icon="pi pi-user-plus"
+                                      styleClass="ui-button-secondary w-full p-button-lg" />
+                        </div>
+                    </div>
+                </div>
+            </h:panelGroup>
+
+        </h:form>
+    </h:body>
+</h:html>

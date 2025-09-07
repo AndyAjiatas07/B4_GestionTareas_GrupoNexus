@@ -16,7 +16,6 @@ import java.util.List;
 @Named
 @ViewScoped
 
-public class GestionTareasController implements Serializable {
     @Autowired
     private ITareaService tareaService;
 

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class EntregaService implements IEntregaService {
+
     @Autowired
     private EntregaRepository entregaRepository;
 

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Curso Matematicas - Matematicas </title>
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/primeflex/themes/primeone-light.css"/>
+
+    <style>
+        body {
+            background: #f0f4f8; /* fondo gris muy claro */
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* Header Principal */
+        .surface-0 {
+            background: linear-gradient(90deg, #6366f1, #4f46e5); /* gradiente morado */
+            color: white;
+        }
+
+        .surface-0 h1 {
+            color: #e0e7ff !important; /* morado claro */
+        }
+
+        .surface-0 p {
+            color: #c7d2fe !important; /* morado suave */
+        }
+
+        /* Botones */
+        .p-button-success {
+            background: #10b981 !important; /* verde moderno */
+            border: none;
+            transition: background 0.2s;
+        }
+        .p-button-success:hover {
+            background: #059669 !important;
+        }
+
+        .p-button-secondary {
+            background: #6b7280 !important; /* gris oscuro */
+            border: none;
+            transition: background 0.2s;
+        }
+        .p-button-secondary:hover {
+            background: #4b5563 !important;
+        }
+
+        /* Iconos */
+        .text-blue-500 { color: #3b82f6 !important; }
+        .text-blue-800 { color: #1e3a8a !important; }
+        .text-green-500 { color: #22c55e !important; }
+        .text-purple-500 { color: #a78bfa !important; }
+        .text-orange-500 { color: #f97316 !important; }
+        .text-red-500 { color: #ef4444 !important; }
+        .text-yellow-700 { color: #b45309 !important; }
+
+        /* Tablas DataTable */
+        .p-datatable .p-datatable-thead > tr > th {
+            background: #e0e7ff; /* encabezado morado claro */
+            color: #1e3a8a; /* morado oscuro */
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .p-datatable .p-datatable-tbody > tr:nth-child(even) {
+            background: #f3f4f6; /* gris muy claro */
+        }
+        .p-datatable .p-datatable-tbody > tr:nth-child(odd) {
+            background: #ffffff;
+        }
+        .p-datatable .p-datatable-tbody > tr:hover {
+            background: #ddd6fe; /* morado suave al hover */
+        }
+
+        .surface-card {
+            border: 1px solid #e5e7eb;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .surface-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        /* Recordatorios y cajas informativas */
+        .surface-50 {
+            background: #fef3c7 !important; /* amarillo suave */
+        }
+        .surface-100 {
+            background: #eef2ff !important; /* morado muy suave */
+        }
+        .surface-200 {
+            background: #e0f2fe !important; /* azul muy suave */
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <!-- Header Principal -->
+    <div class="surface-0 p-4 shadow-2 border-round mb-4">
+        <div class="flex align-items-center justify-content-between">
+            <div class="flex align-items-center">
+                <i class="pi pi-user text-6xl text-blue-500 mr-3"></i>
+                <div>
+                    <h1 class="text-4xl font-bold text-blue-800 mb-2">Portal del Estudiante</h1>
+                    <p class="text-xl text-blue-600 m-0">Materia: Matematicas - Tareas y Entregas</p>
+                </div>
+            </div>
+            <div class="surface-100 border-round p-3">
+                <i class="pi pi-academic-cap text-3xl text-green-500"></i>
+            </div>
+        </div>
+    </div>
+
+    <h:form id="formAlumno">
+        <!-- Sección: Lista de Tareas Asignadas -->
+        <div class="surface-card p-4 shadow-2 border-round mb-5">
+            <div class="flex align-items-center mb-4">
+                <i class="pi pi-list-check text-2xl text-orange-500 mr-3"></i>
+                <h2 class="text-2xl font-semibold text-gray-800 m-0">Tareas Pendientes</h2>
+            </div>
+
+            <p:dataTable id="listaTareasTable"
+                         value="#{gestionAlumnoController.listaTareas}"
+                         var="tarea"
+                         rowKey="#{tarea.codigoTarea}"
+                         paginator="true"
+                         rows="10"
+                         styleClass="p-datatable-gridlines p-datatable-striped"
+                         emptyMessage="No tienes tareas asignadas en este momento">
+
+                <p:column headerText="Título de la Tarea" sortBy="#{tarea.titulo}">
+                    <div class="font-semibold text-gray-900">#{tarea.titulo}</div>
+                </p:column>
+
+                <p:column headerText="Descripción e Instrucciones" style="max-width: 350px">
+                    <div class="text-gray-700 line-height-3">#{tarea.descripcion}</div>
+                </p:column>
+
+                <p:column headerText="Fecha Límite de Entrega" sortBy="#{tarea.fechaEntrega}">
+                    <div class="flex align-items-center">
+                        <i class="pi pi-clock text-red-500 mr-2"></i>
+                        <span class="font-medium text-gray-800">#{tarea.fechaEntrega}</span>
+                    </div>
+                </p:column>
+
+                <p:column headerText="Acciones" style="width: 120px">
+                    <p:commandButton value="Entregar"
+                                     styleClass="p-button-success p-button-sm"
+                                     actionListener="#{gestionAlumnoController.seleccionarTarea(tarea)}"
+                                     update=":formAlumno:dlgEntrega"
+                                     oncomplete="PF('dlgEntrega').show()"
+                                     icon="pi pi-upload"/>
+                </p:column>
+            </p:dataTable>
+        </div>
+
+        <!-- Modal para Entregar Tarea -->
+        <p:dialog id="dlgEntrega"
+                  widgetVar="dlgEntrega"
+                  modal="true"
+                  resizable="false"
+                  width="700"
+                  height="450"
+                  header="Entregar Tarea - English Assignment"
+                  styleClass="surface-card">
+
+            <h:panelGroup id="contenidoDlg" layout="block">
+                <div class="surface-100 border-round p-3 mb-4">
+                    <div class="flex align-items-center mb-2">
+                        <i class="pi pi-file-edit text-blue-500 text-xl mr-2"></i>
+                        <span class="font-bold text-lg text-gray-900">#{gestionAlumnoController.tareaSeleccionada.titulo}</span>
+                    </div>
+                    <p class="text-gray-600 m-0">Completa tu respuesta en el área de texto siguiente</p>
+                </div>
+
+                <div class="field">
+                    <label for="respuesta" class="font-semibold text-gray-900 mb-2 block">
+                        <i class="pi pi-pencil mr-2"></i>Tu Respuesta:
+                    </label>
+                    <p:inputTextarea id="respuesta"
+                                     value="#{gestionAlumnoController.nuevaEntrega.respuesta}"
+                                     rows="8"
+                                     cols="50"
+                                     styleClass="w-full"
+                                     placeholder="Escribe tu respuesta aquí... Asegúrate de revisar tu gramática y ortografía antes de enviar." />
+                </div>
+
+                <div class="surface-50 border-round p-3 mt-3">
+                    <div class="flex align-items-center text-yellow-700">
+                        <i class="pi pi-info-circle mr-2"></i>
+                        <span class="text-sm">
+                            <strong>Recordatorio:</strong> Una vez enviada, no podrás modificar tu respuesta. Revisa cuidadosamente antes de enviar.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex justify-content-end gap-2 mt-4">
+                    <p:commandButton value="Enviar Entrega"
+                                     styleClass="p-button-success"
+                                     icon="pi pi-check"
+                                     actionListener="#{gestionAlumnoController.entregarTarea}"
+                                     update=":formAlumno:listaTareasTable :formAlumno:entregasTable"
+                                     oncomplete="PF('dlgEntrega').hide()"/>
+
+                    <p:commandButton value="Cancelar"
+                                     styleClass="p-button-secondary"
+                                     icon="pi pi-times"
+                                     onclick="PF('dlgEntrega').hide()"
+                                     type="button"/>
+                </div>
+            </h:panelGroup>
+        </p:dialog>
+
+        <!-- Sección: Mis Entregas y Calificaciones -->
+        <div class="surface-card p-4 shadow-2 border-round">
+            <div class="flex align-items-center mb-4">
+                <i class="pi pi-chart-line text-2xl text-purple-500 mr-3"></i>
+                <h2 class="text-2xl font-semibold text-gray-800 m-0">Mis Entregas y Calificaciones</h2>
+            </div>
+
+            <p:dataTable id="entregasTable"
+                         value="#{gestionAlumnoController.listaEntregas}"
+                         var="entrega"
+                         paginator="true"
+                         rows="10"
+                         styleClass="p-datatable-gridlines p-datatable-striped"
+                         emptyMessage="Aún no has entregado ninguna tarea">
+
+                <p:column headerText="Tarea Entregada" sortBy="#{entrega.tarea.titulo}">
+                    <div class="font-semibold text-gray-900">#{entrega.tarea.titulo}</div>
+                </p:column>
+
+                <p:column headerText="Mi Respuesta" style="max-width: 300px">
+                    <div class="text-gray-700 line-height-3">#{entrega.respuesta}</div>
+                </p:column>
+
+                <p:column headerText="Fecha de Entrega" sortBy="#{entrega.fechaEntrega}">
+                    <div class="flex align-items-center">
+                        <i class="pi pi-calendar-check text-green-500 mr-2"></i>
+                        <span>#{entrega.fechaEntrega}</span>
+                    </div>
+                </p:column>
+
+                <p:column headerText="Calificación Obtenida" style="width: 150px">
+                    <div class="flex align-items-center justify-content-center">
+                        <h:panelGroup rendered="#{entrega.calificacion != null}">
+                            <div class="surface-100 border-round p-2 text-center">
+                                <i class="pi pi-star-fill text-yellow-500 mr-1"></i>
+                                <span class="font-bold text-lg">#{entrega.calificacion}</span>
+                                <span class="text-gray-600">/10</span>
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{entrega.calificacion == null}">
+                            <div class="surface-200 border-round p-2 text-center">
+                                <i class="pi pi-clock text-orange-500 mr-1"></i>
+                                <span class="text-orange-600 font-medium">Pendiente</span>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </p:column>
+            </p:dataTable>
+
+            <!-- Estadísticas del Estudiante -->
+            <div class="grid mt-4">
+                <div class="col-12 md:col-4">
+                    <div class="surface-100 text-center p-3 border-round">
+                        <i class="pi pi-send text-2xl text-blue-500 mb-2"></i>
+                        <div class="text-2xl font-bold text-gray-900">#{gestionAlumnoController.listaEntregas.size()}</div>
+                        <div class="text-gray-600">Tareas Entregadas</div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-4">
+                    <div class="surface-100 text-center p-3 border-round">
+                        <i class="pi pi-clock text-2xl text-orange-500 mb-2"></i>
+                        <div class="text-2xl font-bold text-gray-900">#{gestionAlumnoController.listaTareas.size()}</div>
+                        <div class="text-gray-600">Tareas Pendientes</div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-4">
+                    <div class="surface-100 text-center p-3 border-round">
+                        <i class="pi pi-trophy text-2xl text-green-500 mb-2"></i>
+                        <div class="text-2xl font-bold text-gray-900">--</div>
+                        <div class="text-gray-600">Promedio General</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer informativo -->
+        <div class="surface-100 text-center p-4 mt-5 border-round">
+            <div class="text-gray-600">
+                <i class="pi pi-graduation-cap mr-2"></i>
+                <span class="font-medium">Matematicas Learning Hub - Portal del Estudiante</span>
+            </div>
+            <div class="text-sm text-gray-500 mt-2">
+                Mantén un seguimiento de tus tareas y revisa tu progreso académico
+            </div>
+        </div>
+    </h:form>
+</h:body>
+</html>
