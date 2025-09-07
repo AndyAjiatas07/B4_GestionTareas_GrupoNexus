@@ -3,30 +3,177 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
     <title>Registro</title>
+
+
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css"/>
+
+    <style>
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-image:
+                    linear-gradient(rgba(12, 35, 63, 0.55), rgba(12, 35, 63, 0.55)),
+                    url('https://static.wixstatic.com/media/128120_2149451250ff47698d7060f748273a41~mv2.png/v1/fit/w_2500,h_1330,al_c/128120_2149451250ff47698d7060f748273a41~mv2.png');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+
+        .register-card {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 12px 40px rgba(3, 10, 20, 0.45);
+            animation: popIn 0.6s ease;
+        }
+
+        /* Imagen superior */
+        .register-card .header-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display:block;
+        }
+
+        /* Título */
+        .register-card h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.6rem;
+            color: #123047;
+            text-align: center;
+        }
+
+        .register-card .subtitle {
+            text-align: center;
+            color: #4b5563;
+            margin-bottom: 1.25rem;
+            font-size: 0.95rem;
+        }
+
+
+        .register-card label {
+            display:block;
+            margin-bottom:0.4rem;
+            color:#374151;
+            font-weight:600;
+            font-size:0.95rem;
+        }
+
+        .register-card input[type="text"],
+        .register-card input[type="password"],
+        .register-card input[type="email"] {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+            outline: none;
+            transition: box-shadow .15s, border-color .15s;
+            background: #ffffff;
+        }
+
+        .register-card input[type="text"]:focus,
+        .register-card input[type="password"]:focus,
+        .register-card input[type="email"]:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 6px 18px rgba(96,165,250,0.12);
+        }
+
+        /* Botones */
+        .register-card input[type="submit"],
+        .register-card input[type="button"],
+        .register-card button {
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg,#06b6d4,#3b82f6);
+            color: white;
+            box-shadow: 0 8px 20px rgba(59,130,246,0.18);
+            margin-top: 0.75rem;
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #0f172a;
+            border: 1px solid #e2e8f0;
+            margin-top: 0.6rem;
+        }
+
+
+        .register-card .jsf-messages {
+            margin-bottom: 0.8rem;
+            color: #b91c1c;
+            text-align: center;
+            font-weight:600;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        .spacer { height: .9rem; display:block; }
+    </style>
 </h:head>
 <h:body>
-    <h:form>
-        <h2>Registrarse</h2>
+    <div class="register-card">
 
-        <h:messages globalOnly="true" style="color:red" />
 
-        <h:outputLabel for="nombre" value="Nombre: " />
-        <h:inputText id="nombre" value="#{registerLoginController.usuario.nombre}" required="true" />
+        <h:form>
+            <h2>Registrarse</h2>
 
-        <br/><br/>
 
-        <h:outputLabel for="email" value="Correo: " />
-        <h:inputText id="email" value="#{registerLoginController.usuario.email}" required="true" />
+            <div class="jsf-messages">
+                <h:messages globalOnly="true" layout="list" />
+            </div>
 
-        <br/><br/>
+            <div class="subtitle">Crea tu cuenta para acceder al Portal Nexus</div>
 
-        <h:outputLabel for="password" value="Contraseña: " />
-        <h:inputSecret id="password" value="#{registerLoginController.usuario.password}" required="true" />
+            <h:outputLabel for="nombre" value="Nombre:" />
+            <h:inputText id="nombre" value="#{registerLoginController.usuario.nombre}" required="true" />
 
-        <br/><br/>
+            <span class="spacer" />
 
-        <h:commandButton value="Registrarse" action="#{registerLoginController.registrar}" />
-        <h:commandButton value="Cancelar" action="login.xhtml?faces-redirect=true" immediate="true" />
-    </h:form>
+
+            <h:outputLabel for="email" value="Correo:" />
+            <h:inputText id="email" value="#{registerLoginController.usuario.email}" required="true" />
+
+            <span class="spacer" />
+
+
+            <h:outputLabel for="password" value="Contraseña:" />
+            <h:inputSecret id="password" value="#{registerLoginController.usuario.password}" required="true" />
+
+            <span class="spacer" />
+
+
+            <div>
+                <h:commandButton value="Registrarse" action="#{registerLoginController.registrar}" styleClass="btn-primary" />
+            </div>
+
+            <div style="margin-top:.5rem">
+                <h:commandButton value="¿Ya tienes cuenta? ve al login :D" action="login.xhtml?faces-redirect=true" immediate="true" styleClass="btn-secondary" />
+            </div>
+        </h:form>
+    </div>
 </h:body>
 </html>
