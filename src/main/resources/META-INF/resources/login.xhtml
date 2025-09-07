@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+    <title>Login</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h2>Iniciar Sesión</h2>
+
+        <!-- Mensajes globales -->
+        <h:messages globalOnly="true" style="color:red" />
+
+        <!-- Email -->
+        <h:outputLabel for="email" value="Correo: " />
+        <h:inputText id="email" value="#{registerLoginController.usuario.email}" required="true" />
+
+        <br/><br/>
+
+        <!-- Contraseña -->
+        <h:outputLabel for="password" value="Contraseña: " />
+        <h:inputSecret id="password" value="#{registerLoginController.usuario.password}" required="true" />
+
+        <br/><br/>
+
+        <!-- Botones -->
+        <h:commandButton value="Ingresar" action="#{registerLoginController.login}" />
+        <h:commandButton value="Registrarse" action="register.xhtml?faces-redirect=true" immediate="true" />
+    </h:form>
+</h:body>
+</html>

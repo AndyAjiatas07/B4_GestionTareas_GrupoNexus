@@ -2,11 +2,21 @@ drop database if exists gestion_academica_db;
 create database gestion_academica_db;
 use gestion_academica_db;
 
+create table RegLog (
+	id  int auto_increment,
+    nombre varchar(100) not null,
+    email varchar(100) not null unique,
+    password varchar(255) not null,
+    constraint pk_RegLog primary key (id)
+	
+
+);
+
 -- Usuarios (profesor o alumno)
 create table Usuarios (
     codigoUsuario int auto_increment,
     nombreUsuario varchar(128) not null,
-    correoUsuario varchar(128) not null,
+    correoUsuario varchar(200) not null,
     contrasena varchar(64) not null,
     rol enum('alumno','profesor') not null,
     constraint pk_usuarios primary key (codigoUsuario)
@@ -67,3 +77,6 @@ INSERT INTO Entregas (codigoTarea, codigoAlumno, respuesta, fechaEntrega, califi
 (1, 2, 'Respuestas completas del ejercicio de álgebra', '2025-09-09 15:30:00', 8.5),
 (1, 3, 'Respuestas del ejercicio de álgebra', '2025-09-09 16:00:00', 7.0),
 (2, 4, 'Ensayo sobre la Revolución Francesa', '2025-09-14 20:00:00', 9.0);
+
+INSERT INTO RegLog (nombre, email, password)
+VALUES ('Juan Pérez', 'juan.perez@example.com', '123456');
