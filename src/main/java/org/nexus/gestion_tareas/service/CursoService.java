@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CursoService implements ICursoService {
 
     @Autowired
     private CursoRepository cursoRepository;
@@ -32,4 +31,4 @@ public class CursoService implements ICursoService {
     public void eliminarCurso(Curso curso) {
         cursoRepository.delete(curso);
     }
-}
+

@@ -15,7 +15,6 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class GestionTareasController implements Serializable {
 
     @Autowired
     private ITareaService tareaService;
@@ -102,3 +101,4 @@ public class GestionTareasController implements Serializable {
     public Entrega getEntregaSeleccionada() { return entregaSeleccionada; }
     public void setEntregaSeleccionada(Entrega entregaSeleccionada) { this.entregaSeleccionada = entregaSeleccionada; }
 }
+

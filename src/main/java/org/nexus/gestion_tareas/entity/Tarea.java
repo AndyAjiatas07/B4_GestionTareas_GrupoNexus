@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Tarea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

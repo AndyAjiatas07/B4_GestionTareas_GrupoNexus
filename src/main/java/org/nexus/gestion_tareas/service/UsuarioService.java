@@ -14,22 +14,10 @@ public class UsuarioService implements IUsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public List<Usuario> listarUsuarios() {
-        return usuarioRepository.findAll();
-    }
 
-    @Override
-    public Usuario buscarUsuarioPorId(Integer codigo) {
-        return usuarioRepository.findById(codigo).orElse(null);
-    }
-
-    @Override
     public void guardarUsuario(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
 
     @Override
-    public void eliminarUsuario(Usuario usuario) {
-        usuarioRepository.delete(usuario);
-    }
-}
+

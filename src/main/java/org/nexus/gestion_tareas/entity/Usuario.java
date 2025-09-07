@@ -9,9 +9,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
-public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,4 +35,4 @@ public class Usuario {
     public enum Rol {
         alumno, profesor
     }
-}
+

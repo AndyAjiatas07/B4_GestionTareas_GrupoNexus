@@ -9,9 +9,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
-public class Curso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
