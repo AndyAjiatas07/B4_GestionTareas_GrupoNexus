@@ -24,26 +24,13 @@ public class RegisterLoginController implements Serializable {
     private RegLogRepository regLogRepository;
 
     // Constructor vacío obligatorio para JSF
-    public RegisterLoginController() {
-    }
+    public RegisterLoginController() {}
 
+    public RegLog getUsuario() { return usuario; }
+    public void setUsuario(RegLog usuario) { this.usuario = usuario; }
 
-    public RegLog getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(RegLog usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
-
+    public String getMensaje() { return mensaje; }
+    public void setMensaje(String mensaje) { this.mensaje = mensaje; }
 
     // Registrar usuario
     public String registrar() {
@@ -53,6 +40,10 @@ public class RegisterLoginController implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null));
             return null;
         }
+        // Asignar rol por defecto si no viene especificado
+        if (usuario.getRol() == null || usuario.getRol().isEmpty()) {
+            usuario.setRol("ALUMNO");
+        }
         regLogRepository.save(usuario); // Guardar en la base de datos
         mensaje = "Registro exitoso. Puedes iniciar sesión.";
         FacesContext.getCurrentInstance().addMessage(null,
@@ -61,12 +52,30 @@ public class RegisterLoginController implements Serializable {
         return "login.xhtml?faces-redirect=true";
     }
 
-    // Login
+    // Login con diferenciación por rol
     public String login() {
         RegLog u = regLogRepository.findByEmailAndPassword(usuario.getEmail(), usuario.getPassword());
         if (u != null) {
             usuario = u; // Guardar usuario logueado
-            return "paginaPrincipal.xhtml?faces-redirect=true";
+
+            // Diferenciar por rol
+            if ("Profesor".equalsIgnoreCase(usuario.getRol())) {
+                mensaje = "Bienvenido profesor: " + usuario.getNombre();
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, null));
+                return "catalogoProfesor.xhtml?faces-redirect=true"; // Página específica para profesor
+            } else if ("Alumno".equalsIgnoreCase(usuario.getRol())) {
+                mensaje = "Bienvenido alumno: " + usuario.getNombre();
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, null));
+                return "catalogoAlumno.xhtml?faces-redirect=true"; // Página específica para alumno
+            } else {
+                // Rol desconocido
+                mensaje = "Rol de usuario no reconocido";
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null));
+                return null;
+            }
         } else {
             mensaje = "Usuario o contraseña incorrectos";
             FacesContext.getCurrentInstance().addMessage(null,

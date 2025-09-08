@@ -1,179 +1,133 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-<h:head>
-    <title>Registro</title>
+<h:html xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registro - Nexus Portal</title>
+        <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/primefaces@10.0.0/themes/saga-blue.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css"/>
 
+        <style>
+            body {
+                margin: 0;
+                height: 100vh;
+                background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url('https://static.wixstatic.com/media/128120_2149451250ff47698d7060f748273a41~mv2.png/v1/fit/w_2500,h_1330,al_c/128120_2149451250ff47698d7060f748273a41~mv2.png');
+                background-size: cover;
+                background-position: center;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
 
-    <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
-    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css"/>
+            .login-container {
+                width: 100%;
+                max-width: 420px;
+                background-color: #ffffffee;
+                padding: 2.5rem;
+                border-radius: 12px;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+                animation: fadeIn 1s ease;
+            }
 
-    <style>
+            .login-image {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+            }
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background-image:
-                    linear-gradient(rgba(12, 35, 63, 0.55), rgba(12, 35, 63, 0.55)),
-                    url('https://static.wixstatic.com/media/128120_2149451250ff47698d7060f748273a41~mv2.png/v1/fit/w_2500,h_1330,al_c/128120_2149451250ff47698d7060f748273a41~mv2.png');
-            background-size: cover;
-            background-position: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
+            .title-center {
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 1.8rem;
+                color: #2c3e50;
+                margin-bottom: 1.5rem;
+            }
 
+            .text-muted {
+                font-size: 0.9rem;
+                color: #666666;
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
 
-        .register-card {
-            width: 100%;
-            max-width: 480px;
-            background: rgba(255,255,255,0.95);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 12px 40px rgba(3, 10, 20, 0.45);
-            animation: popIn 0.6s ease;
-        }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px);}
+                to { opacity: 1; transform: translateY(0);}
+            }
+        </style>
+    </h:head>
 
-        /* Imagen superior */
-        .register-card .header-img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display:block;
-        }
+    <h:body>
+        <h:form id="register-form">
+            <p:growl id="register-messages" showDetail="true" autoUpdate="true" />
 
-        /* Título */
-        .register-card h2 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.6rem;
-            color: #123047;
-            text-align: center;
-        }
+            <div class="flex align-items-center justify-content-center h-screen">
+                <div class="login-container">
+                    <!-- Imagen -->
+                    <img src="https://static3.depositphotos.com/1005574/198/v/950/depositphotos_1982796-stock-illustration-login-icon-button.jpg"
+                         alt="Imagen de registro"
+                         class="login-image" />
 
-        .register-card .subtitle {
-            text-align: center;
-            color: #4b5563;
-            margin-bottom: 1.25rem;
-            font-size: 0.95rem;
-        }
+                    <div class="title-center">
+                        <i class="pi pi-user-plus"></i>
+                        <span>Registro de Usuario</span>
+                    </div>
 
+                    <p class="text-muted">Por favor, completa tus datos para crear una cuenta.</p>
 
-        .register-card label {
-            display:block;
-            margin-bottom:0.4rem;
-            color:#374151;
-            font-weight:600;
-            font-size:0.95rem;
-        }
+                    <!-- Nombre -->
+                    <div class="input-group mt-2">
+                        <p:inputText id="nombre" value="#{registerLoginController.usuario.nombre}"
+                                     label="Nombre" placeholder="Nombre completo"
+                                     required="true" styleClass="p-inputtext-lg w-full" />
+                    </div>
 
-        .register-card input[type="text"],
-        .register-card input[type="password"],
-        .register-card input[type="email"] {
-            width: 100%;
-            padding: 0.7rem 0.9rem;
-            border-radius: 6px;
-            border: 1px solid #d1d5db;
-            box-sizing: border-box;
-            font-size: 0.95rem;
-            outline: none;
-            transition: box-shadow .15s, border-color .15s;
-            background: #ffffff;
-        }
+                    <!-- Email -->
+                    <div class="input-group mt-2">
+                        <p:inputText id="email" value="#{registerLoginController.usuario.email}"
+                                     label="Correo" placeholder="Correo electrónico"
+                                     required="true" styleClass="p-inputtext-lg w-full" />
+                    </div>
 
-        .register-card input[type="text"]:focus,
-        .register-card input[type="password"]:focus,
-        .register-card input[type="email"]:focus {
-            border-color: #60a5fa;
-            box-shadow: 0 6px 18px rgba(96,165,250,0.12);
-        }
+                    <!-- Contraseña -->
+                    <div class="input-group mt-2">
+                        <p:password id="password" value="#{registerLoginController.usuario.password}"
+                                    label="Contraseña" placeholder="Contraseña"
+                                    required="true" styleClass="p-inputtext-lg w-full" feedback="false"/>
+                    </div>
 
-        /* Botones */
-        .register-card input[type="submit"],
-        .register-card input[type="button"],
-        .register-card button {
-            width: 100%;
-            padding: 0.85rem;
-            border-radius: 8px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 1rem;
-        }
+                    <!-- Rol -->
+                    <div class="input-group mt-2">
+                        <p:selectOneMenu id="rol" value="#{registerLoginController.usuario.rol}"
+                                         styleClass="w-full p-inputtext-lg">
+                            <f:selectItem itemLabel="Seleccione rol" itemValue="" />
+                            <f:selectItem itemLabel="Alumno" itemValue="ALUMNO" />
+                            <f:selectItem itemLabel="Profesor" itemValue="PROFESOR" />
+                        </p:selectOneMenu>
+                    </div>
 
-        .btn-primary {
-            background: linear-gradient(90deg,#06b6d4,#3b82f6);
-            color: white;
-            box-shadow: 0 8px 20px rgba(59,130,246,0.18);
-            margin-top: 0.75rem;
-        }
+                    <!-- Botón de registro -->
+                    <div class="btn-group mt-3">
+                        <p:commandButton value="Registrarse"
+                                         icon="pi pi-check"
+                                         action="#{registerLoginController.registrar}"
+                                         update="register-messages"
+                                         styleClass="ui-button-primary w-full p-button-lg" />
+                    </div>
 
-        .btn-secondary {
-            background: #f1f5f9;
-            color: #0f172a;
-            border: 1px solid #e2e8f0;
-            margin-top: 0.6rem;
-        }
-
-
-        .register-card .jsf-messages {
-            margin-bottom: 0.8rem;
-            color: #b91c1c;
-            text-align: center;
-            font-weight:600;
-        }
-
-        @keyframes popIn {
-            from { opacity: 0; transform: translateY(18px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-
-        .spacer { height: .9rem; display:block; }
-    </style>
-</h:head>
-<h:body>
-    <div class="register-card">
-
-
-        <h:form>
-            <h2>Registrarse</h2>
-
-
-            <div class="jsf-messages">
-                <h:messages globalOnly="true" layout="list" />
-            </div>
-
-            <div class="subtitle">Crea tu cuenta para acceder al Portal Nexus</div>
-
-            <h:outputLabel for="nombre" value="Nombre:" />
-            <h:inputText id="nombre" value="#{registerLoginController.usuario.nombre}" required="true" />
-
-            <span class="spacer" />
-
-
-            <h:outputLabel for="email" value="Correo:" />
-            <h:inputText id="email" value="#{registerLoginController.usuario.email}" required="true" />
-
-            <span class="spacer" />
-
-
-            <h:outputLabel for="password" value="Contraseña:" />
-            <h:inputSecret id="password" value="#{registerLoginController.usuario.password}" required="true" />
-
-            <span class="spacer" />
-
-
-            <div>
-                <h:commandButton value="Registrarse" action="#{registerLoginController.registrar}" styleClass="btn-primary" />
-            </div>
-
-            <div style="margin-top:.5rem">
-                <h:commandButton value="¿Ya tienes cuenta? ve al login :D" action="login.xhtml?faces-redirect=true" immediate="true" styleClass="btn-secondary" />
+                    <!-- Botón para ir a login -->
+                    <div class="btn-group mt-2">
+                        <p:button value="¿Ya tienes cuenta? Login"
+                                  outcome="login.xhtml"
+                                  icon="pi pi-sign-in"
+                                  styleClass="ui-button-secondary w-full p-button-lg" />
+                    </div>
+                </div>
             </div>
         </h:form>
-    </div>
-</h:body>
-</html>
+    </h:body>
+</h:html>

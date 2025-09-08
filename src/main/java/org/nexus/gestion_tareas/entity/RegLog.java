@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "RegLog")
-
 public class RegLog {
 
     @Id
@@ -18,6 +17,8 @@ public class RegLog {
 
     private String password;
 
+    private String rol; // ALUMNO o PROFESOR
+
     // Getters y Setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -30,4 +31,7 @@ public class RegLog {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public String getRol() { return rol; }
+    public void setRol(String rol) { this.rol = rol; }
 }
