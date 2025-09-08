@@ -1,5 +1,4 @@
 package org.nexus.gestion_tareas.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -13,6 +12,8 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 
+
+public class Tarea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigoTarea;
@@ -34,3 +35,4 @@ import java.util.List;
     @OneToMany(mappedBy = "tarea")
     private List<Entrega> entregas;
 }
+

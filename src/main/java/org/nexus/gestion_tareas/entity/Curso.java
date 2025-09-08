@@ -1,5 +1,4 @@
 package org.nexus.gestion_tareas.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
@@ -9,7 +8,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "tareas")
+@EqualsAndHashCode
 
+public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigoCurso;

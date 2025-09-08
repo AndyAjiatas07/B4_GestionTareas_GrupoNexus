@@ -9,7 +9,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@EqualsAndHashCode
+@ToString(exclude = {"cursos", "tareas", "entregas"})
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigoUsuario;
@@ -35,4 +37,4 @@ import java.util.List;
     public enum Rol {
         alumno, profesor
     }
-
+}
