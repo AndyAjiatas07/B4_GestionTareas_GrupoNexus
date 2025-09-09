@@ -7,6 +7,7 @@ create table RegLog (
     nombre varchar(100) not null,
     email varchar(100) not null unique,
     password varchar(255) not null,
+    rol VARCHAR(20) NOT NULL DEFAULT 'Alumno',
     constraint pk_RegLog primary key (id)
 	
 
